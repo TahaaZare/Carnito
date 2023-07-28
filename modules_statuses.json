@@ -1,0 +1,9 @@
+{
+    "Admin": true,
+    "Role": true,
+    "Permission": true,
+    "Site": true,
+    "Content": true,
+    "Comment": true,
+    "Ticket": true
+}

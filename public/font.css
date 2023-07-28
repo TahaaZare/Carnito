@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'IranSans';
+    src: url('admin-assets/fonts/IRANSans/IRANSansWeb.woff') format('woff');
+    src: url('admin-assets/fonts/IRANSans/IRANSansWeb_Light.woff') format('woff');
+}
+
+body,
+a,
+p,
+div,
+textarea,
+input,
+button,
+span,
+section,
+select,
+option,
+td,
+tr,
+table,
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 li {
+    /* direction: rtl !important; */
+    /* text-align: right !important; */
+    font-family: 'IranSans' !important;
+}
