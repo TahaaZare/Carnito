@@ -52,20 +52,20 @@
                                             <td class="fw-bold">{{ $post->published_at }}</td>
                                             <td class=" text-center">
                                                 <label>
-                                                    @if ($post->status === 1)
+                                                    @if ($post->status ==  1)
                                                         <span class="badge bg-success text-white fw-bold text-center rounded-4">فعال</span>
                                                     @endif
-                                                    @if ($post->status === 0)
+                                                    @if ($post->status == 0)
                                                         <span class="badge bg-danger text-white fw-bold text-center rounded-4">غیر فعال</span>
                                                     @endif
                                                 </label>
                                             </td>
                                             <td class="text-center">
                                                 <label>
-                                                    @if ($post->comment_able === 1)
+                                                    @if ($post->comment_able == 1)
                                                         <span class="badge bg-success text-white fw-bold text-center rounded-4">فعال</span>
                                                     @endif
-                                                    @if ($post->comment_able === 0)
+                                                    @if ($post->comment_able == 0)
                                                         <span class="badge bg-danger text-white fw-bold text-center rounded-4">غیر فعال</span>
                                                     @endif
                                                 </label>

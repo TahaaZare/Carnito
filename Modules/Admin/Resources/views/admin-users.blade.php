@@ -32,6 +32,9 @@
                                             تصویر
                                         </th>
                                         <th>
+                                            نام کاربری
+                                        </th>
+                                        <th>
                                             نام و نام خوانوادگی
                                         </th>
 
@@ -73,6 +76,9 @@
 
                                                     </div>
                                                 </div>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="text-xs font-weight-bold"> {{ $admin->username }} </span>
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <span class="text-xs font-weight-bold"> {{ $admin->fullName }} </span>

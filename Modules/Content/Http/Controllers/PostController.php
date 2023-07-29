@@ -17,19 +17,34 @@ class PostController extends Controller
 {
     public function blogs()
     {
-        $posts = Post::where('status',1)->paginate(6);
+        $posts = Post::where('status', 1)->paginate(6);
         $categories = PostCategory::all();
-        return view('site.layouts.blogs.blogs', compact('posts','categories'));
+        foreach ($posts as  $post) {
+            $date = explode('/', $post->published_at);
+            $nowDate = explode('/', jalaliShamsiDate(now('Asia/Tehran')));
+            if ($date[0] == $nowDate[0] && $date[1] == $nowDate[1] && $date[2] == $nowDate[2]) {
+                $post->status = 1;
+                $post->update([$post->status = 1]);
+            }elseif($date[0] >= $nowDate[0] && $date[1] >= $nowDate[1] && $date[2] >= $nowDate[2]){
+                $post->status = 1;
+                $post->update([$post->status = 1]);
+            }elseif($date[0] >= $nowDate[0] || $date[1] >= $nowDate[1] || $date[2] >= $nowDate[2]){
+                $post->status = 1;
+                $post->update([$post->status = 1]);
+            }
+        }
+        return view('site.layouts.blogs.blogs', compact('posts', 'categories'));
     }
     public function singleBlog(Post $post)
     {
         $categories = PostCategory::all();
         $comments = Comment::where('approved', 1)->where('approved', 1)->get();
         $tags = explode(',', $post->tags);
-        return view('site.layouts.blogs.single-blog', compact('post', 'categories', 'comments','tags'));
+        return view('site.layouts.blogs.single-blog', compact('post', 'categories', 'comments', 'tags'));
     }
-    public function nav_blog(){
-        $posts = Post::where('status',1)->paginate(6);
+    public function nav_blog()
+    {
+        $posts = Post::where('status', 1)->paginate(6);
         return view('site.layouts.blogs.layouts.trending', compact('posts'));
     }
     /**
@@ -39,7 +54,20 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->simplePaginate(15);
-
+        foreach ($posts as  $post) {
+            $date = explode('/', $post->published_at);
+            $nowDate = explode('/', jalaliShamsiDate(now('Asia/Tehran')));
+            if ($date[0] == $nowDate[0] && $date[1] == $nowDate[1] && $date[2] == $nowDate[2]) {
+                $post->status = 1;
+                $post->update([$post->status = 1]);
+            } elseif ($date[0] >= $nowDate[0] && $date[1] >= $nowDate[1] && $date[2] >= $nowDate[2]) {
+                $post->status = 1;
+                $post->update([$post->status = 1]);
+            } elseif ($date[0] >= $nowDate[0] || $date[1] >= $nowDate[1] || $date[2] >= $nowDate[2]) {
+                $post->status = 1;
+                $post->update([$post->status = 1]);
+            }
+        }
         return view('content::post.index', compact('posts'));
     }
 

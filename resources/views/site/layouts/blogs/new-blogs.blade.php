@@ -31,7 +31,7 @@
                                                     <h5 class="text-center my-2">{{ $post->name }}</h5>
                                                     <div class="d-flex text-right">
                                                         <p>
-                                                            {!! $post->summary !!}
+                                                            {!! Str::limit($post->summary, 150, ' ...') !!}
                                                         </p>
                                                     </div>
                                                 </div>

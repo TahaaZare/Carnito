@@ -41,10 +41,11 @@
                                         <div class="form-group">
                                             <label for="author_id">نویسنده</label>
                                             <select name="author_id" class="form-control form-control-sm" id="author_id">
+                                                <option value="">نویسنده را انتخاب کنید</option>
                                                 @foreach ($author as $user)
                                                     <option value="{{ $user->id }}"
-                                                        @if (old('author_id', $post->author_id) == $user->id) seleted @endif>
-                                                        {{ $user->first_name }} {{ $user->last_name }}
+                                                        @if (old('author_id', $post->author_id) == $user->id) selected @endif>
+                                                        {{ $user->first_name }} {{ $user->last_name }}    
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -56,13 +57,12 @@
                                             <label for="category_id">دسته بندی</label>
                                             <select name="category_id" id="" class="form-control form-control-sm"
                                                 id="category_id">
+                                                <option value="">دسته را انتخاب کنید</option>
                                                 @foreach ($post_categories as $category)
                                                     <option value="{{ $category->id }}"
-                                                        @if (old('category_id', $post->category_id) == $category->id) seleted @endif>
-                                                        {{ $category->name }}
-                                                    </option>
+                                                        @if (old('category_id', $post->category_id) == $category->id) selected @endif>
+                                                        {{ $category->name }}</option>
                                                 @endforeach
-
                                             </select>
                                         </div>
                                     </section>
