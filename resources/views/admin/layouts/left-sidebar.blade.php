@@ -51,7 +51,16 @@
                     href="{{ route('logout') }}"><span>خروج</span></a>
             </li>
             <hr>
-
+            @if ($user->can('developer'))
+                <li class="open">
+                    <a
+                        href="{{ route('admin.project-category.index') }}"><span>دسته بندی پروژه</span></a>
+                </li>
+                <li class="open">
+                    <a
+                        href="{{ route('admin.project.index') }}"><span>  پروژه هـا</span></a>
+                </li>
+            @endif
             @if ($user->can('admin-panel'))
                 <li class=" open"><a><span>
                             دسترسی های ادمین</span></a></li>

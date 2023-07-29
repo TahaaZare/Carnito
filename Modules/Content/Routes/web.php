@@ -12,11 +12,14 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Content\Entities\Projcet\ProjectCategory;
 use Modules\Content\Http\Controllers\AboutUsController;
 use Modules\Content\Http\Controllers\ContactController;
 use Modules\Content\Http\Controllers\FaqController;
 use Modules\Content\Http\Controllers\PostCategoryController;
 use Modules\Content\Http\Controllers\PostController;
+use Modules\Content\Http\Controllers\ProjectCategoryController;
+use Modules\Content\Http\Controllers\ProjectController;
 use Modules\Content\Http\Controllers\ServiceController;
 use Modules\Site\Http\Controllers\TeamController;
 
@@ -75,6 +78,29 @@ Route::prefix('admin')->group(function () {
                 Route::post('/store', [TeamController::class, 'store'])->name('admin.team.store');
                 Route::get('/edit/{team}', [TeamController::class, 'edit'])->name('admin.team.edit');
                 Route::put('/update/{team}', [TeamController::class, 'update'])->name('admin.team.update');
+            });
+        });
+    });
+
+    Route::prefix('projects')->namespace('Project')->group(function () {
+        Route::prefix('manage-projects')->namespace('manage-projects')->group(function () {
+            Route::prefix('project')->group(function () {
+                Route::get('/', [ProjectController::class, 'index'])->name('admin.project.index');
+                Route::get('/create', [ProjectController::class, 'create'])->name('admin.project.create');
+                Route::post('/store', [ProjectController::class, 'store'])->name('admin.project.store');
+                Route::get('/edit/{project}', [ProjectController::class, 'edit'])->name('admin.project.edit');
+                Route::put('/update/{project}', [ProjectController::class, 'update'])->name('admin.project.update');
+            });
+        });
+    });
+    Route::prefix('project-category')->namespace('ProjectCategory')->group(function () {
+        Route::prefix('manage-project-category')->namespace('manage-project-category')->group(function () {
+            Route::prefix('category')->group(function () {
+                Route::get('/', [ProjectCategoryController::class, 'index'])->name('admin.project-category.index');
+                Route::get('/create', [ProjectCategoryController::class, 'create'])->name('admin.project-category.create');
+                Route::post('/store', [ProjectCategoryController::class, 'store'])->name('admin.project-category.store');
+                Route::get('/edit/{category}', [ProjectCategoryController::class, 'edit'])->name('admin.project-category.edit');
+                Route::put('/update/{category}', [ProjectCategoryController::class, 'update'])->name('admin.project-category.update');
             });
         });
     });
