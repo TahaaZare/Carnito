@@ -1,0 +1,26 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Carnito Api",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/v1/show-projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "description": "Students Data",
+                "responses": {
+                    "200": {
+                        "description": "Its Ok",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

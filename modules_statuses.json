@@ -5,5 +5,7 @@
     "Site": true,
     "Content": true,
     "Comment": true,
-    "Ticket": true
+    "Ticket": true,
+    "Apu": true,
+    "Api": true
 }

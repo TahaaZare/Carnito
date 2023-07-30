@@ -2,13 +2,15 @@
 
 namespace Modules\Content\Entities\Projcet;
 
+use App\Http\Resources\ProjectResource;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
-    use HasFactory,Sluggable;
+    use HasFactory, Sluggable;
+
     public function sluggable(): array
     {
         return [
@@ -17,6 +19,7 @@ class Project extends Model
             ]
         ];
     }
+
     protected $fillable = [
         'name',
         'description',
@@ -25,8 +28,15 @@ class Project extends Model
         'slug',
         'category_id',
     ];
+
     public function projectCategory()
     {
         return $this->belongsTo(ProjectCategory::class, 'category_id');
+    }
+
+    public static function getProjects()
+    {
+        $projects = Project::all();
+        return ProjectResource::collection($projects);
     }
 }
