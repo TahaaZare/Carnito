@@ -31,8 +31,8 @@
                                                 <span class="fw-bold">*</span>
                                                 سوال
                                             </label>
-                                            <input type="text" value="{{ old('question',$faq->question) }}" name="question"
-                                                class="form-control form-control-sm">
+                                            <input type="text" value="{{ old('question', $faq->question) }}"
+                                                name="question" class="form-control form-control-sm">
                                         </div>
                                         @error('question')
                                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -48,7 +48,7 @@
                                             <label for="tags">
                                                 <span class="fw-bold">*</span>
                                                 تگ ها</label>
-                                            <input type="hidden" value="{{ old('tags',$faq->tags) }}"
+                                            <input type="hidden" value="{{ old('tags', $faq->tags) }}"
                                                 class="form-control form-control-sm" name="tags" id="tags">
                                             <select class="select2 form-control form-control-sm" name="select_tags"
                                                 id="select_tags" multiple>
@@ -70,9 +70,9 @@
                                             <label for="status">وضعیت</label>
                                             <select name="status" id="" class="form-control form-control-sm"
                                                 id="status">
-                                                <option value="0" @if (old('status',$faq->status) == 0) selected @endif>
+                                                <option value="0" @if (old('status', $faq->status) == 0) selected @endif>
                                                     غیرفعال</option>
-                                                <option value="1" @if (old('status',$faq->status) == 1) selected @endif>
+                                                <option value="1" @if (old('status', $faq->status) == 1) selected @endif>
                                                     فعال</option>
                                             </select>
                                         </div>
@@ -86,8 +86,7 @@
                                                 <span class="fw-bold">*</span>
                                                 جواب
                                             </label>
-                                            <textarea name="awnser" id="awnser" 
-                                            class="form-control rounded-4 form-control-sm awnser" rows="6">{{ old('awnser',$faq->awnser) }}</textarea>
+                                            <textarea name="awnser" id="awnser" class="form-control awnser rounded-4 form-control-sm awnser" rows="6">{{ old('awnser', $faq->awnser) }}</textarea>
                                         </div>
                                     </section>
 
@@ -108,19 +107,34 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('admin-assets/ckeditor5/build/ckeditor.js') }}"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('.awnser'), {
-            licenseKey: '',
-        })
-        .then(editor => {
-            window.editor = editor;
-        })
-        .catch(error => {
-            console.log(error);
+    <script src="{{ asset('admin-assets/ckeditor5/build/ckeditor.js') }}"></script>
+    <script>
+        const watchdog = new CKSource.EditorWatchdog();
+        window.watchdog = watchdog;
+        watchdog.setCreator((element, config) => {
+            return CKSource.Editor
+                .create(element, config)
+                .then(editor => {
+                    return editor;
+                })
         });
-</script>
+
+        watchdog.setDestructor(editor => {
+            return editor.destroy();
+        });
+
+        watchdog.on('error', handleError);
+
+        watchdog
+            .create(document.querySelector('.awnser'), {
+                licenseKey: '',
+            })
+            .catch(handleError);
+
+        function handleError(error) {
+            console.error(error);
+        }
+    </script>
     {!! JsValidator::formRequest('Modules\Content\Http\Requests\FaqRequest') !!}
     <script>
         $(document).ready(function() {

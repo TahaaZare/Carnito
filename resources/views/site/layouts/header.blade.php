@@ -19,7 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="{{ route('our-services') }}">سرویس ها</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="{{ route('projects') }}">پروژه هـا</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="{{ route('about-us') }}">درباره مـا</a>
                 </li>

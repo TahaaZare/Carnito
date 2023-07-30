@@ -108,18 +108,34 @@
 
 @section('script')
 <script src="{{ asset('admin-assets/ckeditor5/build/ckeditor.js') }}"></script>
+
 <script>
-    ClassicEditor
-        .create(document.querySelector('.awnser'), {
-            licenseKey: '',
-        })
-        .then(editor => {
-            window.editor = editor;
-        })
-        .catch(error => {
-            console.log(error);
-        });
-</script>
+    const watchdog = new CKSource.EditorWatchdog();
+          window.watchdog = watchdog;
+          watchdog.setCreator( ( element, config ) => {
+              return CKSource.Editor
+                  .create( element, config )
+                  .then( editor => {
+                      return editor;
+                  } )
+          } );
+          
+          watchdog.setDestructor( editor => {
+              return editor.destroy();
+          } );
+          
+          watchdog.on( 'error', handleError );
+          
+          watchdog
+              .create( document.querySelector( '.awnser' ), {
+                  licenseKey: '',
+              } )
+              .catch( handleError );
+          
+          function handleError( error ) {
+              console.error( error );
+          }
+  </script>
     {!! JsValidator::formRequest('Modules\Content\Http\Requests\FaqRequest') !!}
     <script>
         $(document).ready(function() {

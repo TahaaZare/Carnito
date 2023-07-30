@@ -138,9 +138,33 @@
             readURL(this);
         });
     </script>
-    <script type="text/javascript" src="{{ asset('admin-assets/ckeditor4/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
+   <script type="text/javascript" src="{{ asset('admin-assets/ckeditor5/build/ckeditor.js') }}"></script>
+   <script>
+       const watchdog = new CKSource.EditorWatchdog();
+             window.watchdog = watchdog;
+             watchdog.setCreator( ( element, config ) => {
+                 return CKSource.Editor
+                     .create( element, config )
+                     .then( editor => {
+                         return editor;
+                     } )
+             } );
+             
+             watchdog.setDestructor( editor => {
+                 return editor.destroy();
+             } );
+             
+             watchdog.on( 'error', handleError );
+             
+             watchdog
+                 .create( document.querySelector( '.text' ), {
+                     licenseKey: '',
+                 } )
+                 .catch( handleError );
+             
+             function handleError( error ) {
+                 console.error( error );
+             }
+     </script>
     {!! JsValidator::formRequest('Modules\Content\Http\Requests\Service\EditServiceRequest') !!}
 @endsection

@@ -155,27 +155,32 @@
     </script>
     <script src="{{ asset('admin-assets/ckeditor5/build/ckeditor.js') }}"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('.description'), {
-                licenseKey: '',
-            })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('.summary'), {
-                licenseKey: '',
-            })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    </script>
+        const watchdog = new CKSource.EditorWatchdog();
+              window.watchdog = watchdog;
+              watchdog.setCreator( ( element, config ) => {
+                  return CKSource.Editor
+                      .create( element, config )
+                      .then( editor => {
+                          return editor;
+                      } )
+              } );
+              
+              watchdog.setDestructor( editor => {
+                  return editor.destroy();
+              } );
+              
+              watchdog.on( 'error', handleError );
+              
+              watchdog
+                  .create( document.querySelector( '.text' ), {
+                      licenseKey: '',
+                  } )
+                  .catch( handleError );
+              
+              function handleError( error ) {
+                  console.error( error );
+              }
+      </script>
 
     {!! JsValidator::formRequest('Modules\Content\Http\Requests\Project\StoreProjectRequest') !!}
 @endsection
