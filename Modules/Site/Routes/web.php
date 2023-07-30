@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Comment\Http\Controllers\CommentController;
 use Modules\Content\Entities\ContactUs;
 use Modules\Content\Http\Controllers\ContactController;
+use Modules\Content\Http\Controllers\ProjectController;
 use Modules\Counseling\Http\Controllers\CounselingController;
 use Modules\Site\Http\Controllers\Auth\LoginController;
 use Modules\Site\Http\Controllers\Auth\LoginRegisterController;
@@ -67,4 +68,9 @@ Route::namespace('Profile')->group(function () {
     Route::get('/ticket-change/{ticket}', [TicketController::class, 'change'])->name('customer.profile.change');
     Route::get('my-tickets/create', [TicketController::class, 'create'])->name('customer.profile.my-tickets.create');
     Route::post('my-tickets/store', [TicketController::class, 'store'])->name('customer.profile.my-tickets.store');
+});
+
+Route::prefix('projects')->group(function () {
+    Route::get('/', [ProjectController::class, 'allProjects'])->name('projects');
+    Route::get('/show/{project:slug}', [ProjectController::class, 'show'])->name('show-project');
 });

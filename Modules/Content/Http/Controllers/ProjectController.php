@@ -13,10 +13,13 @@ use Modules\Content\Http\Requests\Project\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function allProjects(){
+        $projects = Project::where('status',1)->paginate(6);
+        return view('site.layouts.projects.index',compact('projects'));
+    }
+    public function show(Project $project){
+        return view('site.layouts.projects.show-project',compact('project'));
+    }
     public function index()
     {
         $user = auth()->user();

@@ -19,7 +19,13 @@
                     <ul class="nav__menu">
 
                         <li class="active">
-                            <a href="index.html">صفحه اصلی</a>
+                            <a href="{{route('blogs')}}">صفحه اصلی</a>
+                        </li>
+                        <li>
+                            <a href="{{route('home')}}">کارنیتو</a>
+                        </li>
+                        <li>
+                            <a href="{{route('projects')}}">پروژه ها</a>
                         </li>
                     </ul> <!-- end menu -->
                 </nav> <!-- end nav-wrap -->
